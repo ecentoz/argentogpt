@@ -27,25 +27,18 @@ function sendMessage() {
   body.append(msg);
 
   // 2) Llamada a tu backend que invoque Vertex AI
-  fetch('/api/chat', {
-    method:'POST',
-    body: JSON.stringify({ text: input.value }),
-    headers:{ 'Content-Type':'application/json' }
-  })
-  .then(r=>r.json())
-  .then(res=>{
-    const botMsg = document.createElement('div');
-    botMsg.textContent = res.reply;
-    botMsg.style.cssText = `
-      background: var(--clr-surface);
-      color: var(--clr-text);
-      margin:0.5rem 0;
-      padding:0.5rem;
-      border-radius:var(--radius);
-    `;
-    body.append(botMsg);
-    body.scrollTop = body.scrollHeight;
-  });
+  // Placeholder API for HuellaBot
+  const botMsg = document.createElement('div');
+  botMsg.textContent = "HuellaBot dice: Lo siento, el servicio no está disponible por el momento.";
+  botMsg.style.cssText = `
+    background: var(--clr-surface);
+    color: var(--clr-text);
+    margin:0.5rem 0;
+    padding:0.5rem;
+    border-radius:var(--radius);
+  `;
+  body.append(botMsg);
+  body.scrollTop = body.scrollHeight;
 
   input.value = '';
   body.scrollTop = body.scrollHeight;
