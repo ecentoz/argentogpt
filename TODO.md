@@ -32,8 +32,8 @@
 - [x] Populate login.html
 
 ## Connect "Free Trial" and "Login/Register"
-- [ ] Add minimal signup forms (email + password) to free-trial.html and login.html
-- [ ] Ensure navigation points to login.html
+- [x] Add minimal signup forms (email + password) to free-trial.html and login.html
+- [x] Ensure navigation points to login.html
 
 ## Further Steps (Checklist from idea_1.txt)
 - [ ] Authentication: Choose a provider and connect the forms.
