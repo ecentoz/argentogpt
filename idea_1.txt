@@ -1,0 +1,350 @@
+1. Crea tu proyecto y versión inicial
+- En tu máquina, crea la carpeta del proyecto:
+mkdir mi-web-IA && cd mi-web-IA
+git init
+- Dentro crea esta estructura básica:
+mi-web-IA/
+├─ index.html
+├─ about.html
+├─ plans.html
+├─ pricing.html
+├─ free-trial.html
+├─ login.html
+├─ css/
+│   └─ theme.css
+├─ js/
+│   └─ chat-widget.js
+└─ assets/
+    └─ (logo, imágenes…)
+- Haz tu primer commit:
+git add .
+git commit -m "Inicial: estructura de carpetas y archivos vacíos"
+
+
+
+2. Define tu tema oscuro y tipografía
+En css/theme.css pon:
+/* 1) Importa tu tipografía (reemplaza con tu URL si no es Inter) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+:root {
+  --clr-bg: #050b1f;           /* azul marino muy oscuro */
+  --clr-surface: #0b122c;      /* paneles */
+  --clr-accent: #1f77b4;       /* acentos, botones */
+  --clr-text: #ffffff;         /* texto principal */
+  --clr-text-muted: #a0a0a8;   /* secundario */
+  --radius: 6px;
+  --transition: 0.25s;
+}
+
+* { box-sizing: border-box; margin:0; padding:0; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--clr-bg);
+  color: var(--clr-text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+/* Nav global */
+nav {
+  background: var(--clr-surface);
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+nav .logo { font-weight:700; font-size:1.2rem; }
+nav ul {
+  list-style:none;
+  display: flex;
+  gap:1.5rem;
+}
+nav a {
+  color: var(--clr-text);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+nav a:hover { color: var(--clr-accent); }
+
+/* Contenedor de contenido */
+.main-container {
+  flex:1;
+  padding: 2rem;
+}
+
+/* Footer básico */
+footer {
+  text-align:center;
+  padding:1rem;
+  background:var(--clr-surface);
+  font-size:0.9rem;
+  color:var(--clr-text-muted);
+}
+
+
+Haz commit:
+git add css/theme.css
+git commit -m "Tema oscuro y tipografía definidos"
+
+
+
+3. Plantilla base HTML (index.html como ejemplo)
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Mi Web IA</title>
+  <link rel="stylesheet" href="css/theme.css">
+</head>
+<body>
+  <nav>
+    <div class="logo">MiWebIA</div>
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="about.html">Sobre Nosotros</a></li>
+      <li><a href="plans.html">Planes</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="free-trial.html">Prueba Gratuita</a></li>
+      <li><a href="login.html">Login/Register</a></li>
+    </ul>
+  </nav>
+
+  <div class="main-container">
+    <h1>Bienvenido a Mi Web IA</h1>
+    <p>Aquí publicaremos nuestro modelo de IA “MiBot” preentrenado y limitado.</p>
+
+    <!-- Botón para abrir chat -->
+    <button id="open-chat" style="
+       background:var(--clr-accent);
+       color:#fff;
+       border:none;
+       padding:0.75rem 1.5rem;
+       border-radius:var(--radius);
+       cursor:pointer;
+     ">
+      Abrir Chat IA
+    </button>
+  </div>
+
+  <!-- Chat Widget flotante -->
+  <div id="chat-widget" class="collapsed">
+    <header>
+      <span>Chat IA</span>
+      <button id="toggle-chat">🔼</button>
+    </header>
+    <div class="chat-body"></div>
+    <form class="chat-input" onsubmit="return sendMessage()">
+      <input id="chat-input" placeholder="Escribe tu mensaje…">
+      <button>Enviar</button>
+    </form>
+  </div>
+
+  <footer>
+    &copy; 2025 Mi Web IA. Todos los derechos reservados.
+  </footer>
+
+  <script src="js/chat-widget.js"></script>
+</body>
+</html>
+
+
+Haz commit:
+git add index.html
+git commit -m "Plantilla base HTML con nav y chat widget"
+
+
+
+4. Estiliza y controla el Chat Widget
+En css/theme.css añade abajo:
+#chat-widget {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  width: 320px;
+  max-height: 480px;
+  background: var(--clr-surface);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: translateY(100%);
+  transition: transform var(--transition);
+}
+#chat-widget.expanded { transform: translateY(0); }
+#chat-widget header {
+  background: var(--clr-accent);
+  color: #fff;
+  padding: 0.5rem;
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+}
+#chat-widget .chat-body {
+  flex:1;
+  padding:0.5rem;
+  overflow-y:auto;
+}
+#chat-widget .chat-input {
+  display:flex;
+}
+#chat-widget .chat-input input {
+  flex:1;
+  padding:0.5rem;
+  border:none;
+  background:#19253a;
+  color:#fff;
+}
+#chat-widget .chat-input button {
+  background: var(--clr-accent);
+  border:none;
+  padding:0 1rem;
+  color:#fff;
+}
+
+
+En js/chat-widget.js:
+const widget = document.getElementById('chat-widget');
+const btnOpen = document.getElementById('open-chat');
+const btnToggle = document.getElementById('toggle-chat');
+
+btnOpen.onclick = () => widget.classList.add('expanded');
+btnToggle.onclick = () => {
+  widget.classList.toggle('expanded');
+  widget.classList.toggle('collapsed');
+};
+
+// función de envío (placeholder)
+function sendMessage() {
+  const input = document.getElementById('chat-input');
+  const body  = widget.querySelector('.chat-body');
+  if (!input.value.trim()) return false;
+
+  // 1) Muestra el mensaje del usuario
+  const msg = document.createElement('div');
+  msg.textContent = input.value;
+  msg.style.cssText = `
+    background: var(--clr-accent);
+    color:#fff;
+    margin:0.5rem 0;
+    padding:0.5rem;
+    border-radius:var(--radius);
+  `;
+  body.append(msg);
+
+  // 2) Llamada a tu backend que invoque Vertex AI
+  fetch('/api/chat', {
+    method:'POST',
+    body: JSON.stringify({ text: input.value }),
+    headers:{ 'Content-Type':'application/json' }
+  })
+  .then(r=>r.json())
+  .then(res=>{
+    const botMsg = document.createElement('div');
+    botMsg.textContent = res.reply;
+    botMsg.style.cssText = `
+      background: var(--clr-surface);
+      color: var(--clr-text);
+      margin:0.5rem 0;
+      padding:0.5rem;
+      border-radius:var(--radius);
+    `;
+    body.append(botMsg);
+    body.scrollTop = body.scrollHeight;
+  });
+
+  input.value = '';
+  body.scrollTop = body.scrollHeight;
+  return false;
+}
+
+
+Commit:
+git add css/theme.css js/chat-widget.js
+git commit -m "Estilos y lógica básica para widget de chat"
+
+
+
+5. Crea el endpoint /api/chat (Vertex AI)
+- En tu carpeta backend (o Functions) configura un servicio Node.js:
+mkdir backend && cd backend
+npm init -y
+npm install @google-cloud/aiplatform express body-parser
+- backend/index.js:
+const express = require('express');
+const bodyParser = require('body-parser');
+const {PredictionServiceClient} = require('@google-cloud/aiplatform').v1;
+const app = express();
+app.use(bodyParser.json());
+
+const client = new PredictionServiceClient();
+const endpoint = 'projects/PROYECTO/locations/us-central1/endpoints/ENDPOINT_ID';
+
+app.post('/api/chat', async (req, res) => {
+  const [response] = await client.predict({
+    endpoint,
+    instances: [{ content: req.body.text }],
+    parameters: { temperature: 0.3, maxOutputTokens: 150 }
+  });
+  const reply = response.predictions[0].generated_text || 'Lo siento, no entendí.';
+  res.json({ reply });
+});
+
+const PORT = process.env.PORT||3000;
+app.listen(PORT, ()=> console.log(`API corriendo en puerto ${PORT}`));
+- Despliega como Cloud Run, Firebase Functions o tu hosting preferido.
+Commit:
+git add backend
+git commit -m "API de chat usando Vertex AI"
+
+
+
+6. Rellena las demás páginas
+Cada HTML (about.html, plans.html, etc.) usa el mismo <nav> y <footer>. Dentro de .main-container pon tu contenido. Ejemplo pricing.html:
+<div class="main-container">
+  <h2>Pricing</h2>
+  <table style="width:100%;border-collapse:collapse;color:var(--clr-text-muted)">
+    <thead>
+      <tr>
+        <th>Plan</th><th>Precio (USD/mes)</th><th>Características</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Básico</td><td>$10</td><td>100 consultas/mes, soporte email</td>
+      </tr>
+      <tr>
+        <td>Pro</td><td>$30</td><td>1,000 consultas/mes, soporte chat</td>
+      </tr>
+      <tr>
+        <td>Enterprise</td><td>$80</td><td>Consultas ilimitadas, SLA 24/7</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+Commit cada página a tu gusto:
+git add *.html
+git commit -m "Sección Pricing y demás páginas básicas"
+
+
+
+7. Conecta “Prueba Gratuita” y “Login/Register”
+- En free-trial.html y login.html, añade un formulario de signup mínimo (email+password).
+- En el nav asegúrate de apuntar a login.html.
+- Más adelante podrás conectar con tu backend de autenticación (Auth0, Firebase Auth, etc.).
+Commit:
+git add free-trial.html login.html
+git commit -m "Formularios Prueba Gratuita y Login/Register"
+
+
+
+8. Checklist de siguiente pasos
+- Autenticación: elige proveedor y conecta los formularios.
+- Consistencia de estilos: revisa contrastes WCAG.
+- Responsive: añade media queries (menu hamburguesa).
+- SEO & Meta: cada página con sus meta tags.
+- Despliegue final: Netlify, Vercel o GCP

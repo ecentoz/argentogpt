@@ -1,0 +1,37 @@
+🧭 1. Análisis general de arquitectura
+Objetivo: Comprender la composición del sitio y sus módulos principales.
+- Navegar el sitio completo y anotar las secciones: Inicio, Sobre Nosotros, Planes, Pricing, Prueba Gratuita, Login/Register.
+- Identificar qué rutas están involucradas (URLs de cada sección).
+- Revisar si hay navegación dinámica (SPA) o multipágina clásica (MPA).
+- Verificar si hay funcionalidades interactivas (chatbot flotante, animaciones, formularios).
+
+🧱 2. Inspección del front-end
+Herramientas: Chrome DevTools, Firefox Inspector.
+- Estructura HTML:
+Inspecciona elementos clave: nav, footer, contenedor principal, popups (ej. el chat IA).
+Anota jerarquía, clases y uso de etiquetas semánticas.
+- CSS:
+Ve al panel “Sources” y busca los estilos. ¿Hay una hoja theme.css? ¿Variables :root?
+Inspecciona el diseño del chat, la barra de navegación, los botones de login.
+- Tipografía:
+Verifica en el <head> si hay @import de Google Fonts u otra CDN.
+Anota nombres y pesos usados (ej. Inter 400, 700).
+- Colores y estética:
+Copia valores de colores clave (fondo, texto, acento). Confirma accesibilidad.
+
+💬 3. Funcionamiento del chat IA
+Elementos a rastrear:
+- Busca el botón que abre el chat y el contenedor que lo envuelve (¿modal? ¿ventana flotante?).
+- Analiza el formulario del chat: input, botón enviar.
+- Abre la pestaña “Network” y escribe un mensaje.
+¿Qué request se hace? ¿POST? ¿a qué endpoint (/api/chat, /vertex, etc)?
+¿Qué parámetros incluye el body?
+¿Qué estructura tiene la respuesta (JSON con reply, content, etc)?
+- Intenta inferir si es una integración directa con Vertex AI o si hay un middleware (Express, Firebase Functions, etc).
+
+🔐 4. Comportamiento del login y prueba gratuita
+- Revisa si el botón “Login/Register” dirige a una nueva página o abre un modal.
+- Al enviar el formulario, observa el tráfico de red:
+¿Se hace un fetch a un servicio externo (Auth0, Firebase, API propia)?
+¿Qué campos se envían (email, password, token)?
+- Si hay cookies creadas, revisa si hay sesión o JWT en localStorage.
