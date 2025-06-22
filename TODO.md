@@ -19,6 +19,7 @@
 ## Backend Integration (Vertex AI and Cloud Run)
 - [x] Set up Node.js backend using Express and @google-cloud/aiplatform
 - [x] Create /api/chat endpoint that integrates with Vertex AI
+- [ ] Deploy backend to Cloud Run (Implement this step)
 
 ## HuellaBot Integration (Placeholder)
 - [x] Integrate placeholder API for HuellaBot into js/chat-widget.js
